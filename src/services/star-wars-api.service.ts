@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IPlanet } from 'src/models/iplanet';
 import { IStarship } from 'src/models/istarship';
-
+import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,18 @@ export class StarWarsApiService {
     return this.http.get<IStarship>('/assets/responses/starship.json');
   }
 
+  getUpperPlanetName(): Observable<IPlanet> {
+
+     return this.getPlanetById()
+                .pipe(
+          map(planetObs => {
+            return {
+             name : planetObs.name.toUpperCase(),
+             population : planetObs.population,
+             terrain : planetObs.terrain.toUpperCase()
+            }
+          })
+        );
+  }
 
 }

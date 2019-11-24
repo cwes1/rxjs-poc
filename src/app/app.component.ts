@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   title = 'rxjs-poc';
   viewModelObservable: Observable<IViewModel>;
   planetObservable: Observable<IPlanet>;
+  planetUpperObservable: Observable<IPlanet>;
 
   constructor(private service: ViewmodelService, 
               private swapiService: StarWarsApiService){}
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.getViewModel();
     this.getPlanet();
+    this.getUpper();
   }
 
   getPlanet() {
@@ -34,6 +36,11 @@ export class AppComponent implements OnInit {
   getViewModel() { 
     this.viewModelObservable = this.service.getData(1)
           .pipe(map(response => { return response; }));
+  }
+
+  getUpper() { 
+    this.planetUpperObservable = this.swapiService.getUpperPlanetName()
+          .pipe(map(response => {return response; }));
   }
 
 }

@@ -2,3 +2,4 @@
 
 <p *ngIf="planetObservable | async as planet">Planet API Name: {{planet.name}}</p>
 <p *ngIf="viewModelObservable | async as viewModel">Planet VM Name: {{viewModel.planet?.name}}</p>
+<p *ngIf="planetUpperObservable | async as planetUpper">Planet Upper Name: {{planetUpper.name}}</p>
