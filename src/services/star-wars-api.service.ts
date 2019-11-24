@@ -16,19 +16,19 @@ export class StarWarsApiService {
 
   //baseUrl = 'http://swapi.com/api';
 
-  getPersonById(id: number): Observable<IPerson>{
+  getPersonById(): Observable<IPerson>{
     //const url = `${this.baseUrl}/people/${id}`;
     
     return this.http.get<IPerson>('/assets/responses/person.json');
   }
 
-  getPlanetById(id: number): Observable<IPlanet>{
+  getPlanetById(): Observable<IPlanet>{
     //const url = `${this.baseUrl}/planets/${id}`;
 
     return this.http.get<IPlanet>('/assets/responses/planet.json');
   }
 
-  getStarshipById(id: number): Observable<IStarship>{
+  getStarshipById(): Observable<IStarship>{
     //const url = `${this.baseUrl}/starships/${id}`;
 
     return this.http.get<IStarship>('/assets/responses/starship.json');

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IViewModel } from 'src/models/iviewmodel';
 import { ViewmodelService } from 'src/services/viewmodel.service';
+import { Observable } from 'rxjs';
+import { IPlanet } from 'src/models/iplanet';
+import { StarWarsApiService } from 'src/services/star-wars-api.service';
+import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +15,25 @@ import { ViewmodelService } from 'src/services/viewmodel.service';
 export class AppComponent implements OnInit {
   
   title = 'rxjs-poc';
-  viewModel: IViewModel;
+  viewModelObservable: Observable<IViewModel>;
+  planetObservable: Observable<IPlanet>;
 
-  constructor(private service: ViewmodelService){}
+  constructor(private service: ViewmodelService, 
+              private swapiService: StarWarsApiService){}
   
   ngOnInit() {
-    this.viewModel = this.service.getData(5);
-    console.log(this.viewModel);
-    console.log(this.viewModel.starship);
+    this.getViewModel();
+    this.getPlanet();
+  }
+
+  getPlanet() {
+    this.planetObservable = this.swapiService.getPlanetById()
+          .pipe(map(response => { return response; }));
+  }
+
+  getViewModel() { 
+    this.viewModelObservable = this.service.getData(1)
+          .pipe(map(response => { return response; }));
   }
 
 }
